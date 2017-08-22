@@ -1,7 +1,11 @@
 package com.test;
 
 import java.util.Date;
-
+/**
+ * 测试demo类
+ * @author scl
+ *
+ */
 public class Demo {
 	private String custId;
 	private String name,status;
