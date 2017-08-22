@@ -1,0 +1,30 @@
+# druid数据库连接池配置
+custom:
+    datasource:
+        names: slave
+        slave: 
+            type: com.alibaba.druid.pool.DruidDataSource
+            #数据库连接基本属性
+            username: ${LOTTERY_DB_USER_S}
+            url: jdbc:mysql://${LOTTERY_DB_HOST_S}:${LOTTERY_DB_PORT_S}/${LOTTERY_DB_NAME_S}?characterEncoding=utf8&useSSL=true
+            driverClassName: com.mysql.jdbc.Driver
+            password: ${LOTTERY_DB_PASS_S}
+            filters: stat
+            #以下是数据库连接池初始化数据
+            maxActive: 20
+            initialSize: 3
+            maxWait: 60000
+            minIdle: 5
+            timeBetweenEvictionRunsMillis: 6000
+            minEvictableIdleTimeMillis: 300000
+            validationQuery: SELECT
+            testWhileIdle: true
+            testOnBorrow: false
+            testOnReturn: false
+            maxOpenPreparedStatements: 20
+            removeAbandoned: true
+            #设置链接租期时间通过datasource.getConnontion() 
+            #取得的连接必须在removeAbandonedTimeout这么多秒内调用close(),
+            #要不我就弄死你.(就是conn不能超过指定的租期)
+            removeAbandonedTimeout: 1800
+            logAbandoned: true

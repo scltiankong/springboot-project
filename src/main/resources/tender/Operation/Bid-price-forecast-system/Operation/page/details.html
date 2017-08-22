@@ -1,0 +1,114 @@
+<div class="detailsInfoBox">
+	<div class="back"><a href><返回</a></div>
+	<div class="searchBg">
+		<div class="search clearfix">
+			<div class="searchCenter clearfix">
+				<div class="searchTime fl">
+					<span>开标时间：</span>
+					<input type="text" class="inputDate" id="startTime" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')||\'2020-10-01\'}',dateFmt:'yyyy-MM-dd'})"/>
+						<span>至</span>
+					<input type="text" class="inputDate" id="endTime" onclick="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')||\'2020-10-01\'}',dateFmt:'yyyy-MM-dd'})"/>
+				</div>
+				<div class="searchArea fr">
+					<span>开标地域：</span>
+					<!--<select ng-model="selected" ng-options="obj.id as obj.name for obj in AreaCity">
+					</select>-->
+					<select class="checkArea">
+						<option value="0">省</option>
+						<option  ng-repeat=" obj in AreaCity" ng-bind="obj.name"></option>
+					</select>
+					<select class="checkArea">
+						<option value="0">市</option>
+						<option  ng-repeat=" obj in AreaCity" ng-bind="obj.name"></option>
+					</select>
+				</div>
+				<div class="searchDrug fl">
+					<span>药物类别：</span>
+					<select class="checkDrug">
+						<option value="0">全部</option>
+						<option>1</option>
+						<option>2</option>
+					</select>
+				</div>
+				<div class="searchMode fl">
+					<span>模式：</span>
+					<select class="checkMode">
+						<option value="0">全部</option>
+						<option>1</option>
+						<option>2</option>
+					</select>
+				</div>
+				<div class="searchBtn fr">
+					<input type="button" value="查询" class="btn btn-info "/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--table-->
+	<div class="tableBox">
+		<div class="tableTitle clearfix">
+			<input type="checkbox" id="allSel" ng-model="master" ng-click="all(master)"/><label for="allSel">全选</label>
+			<input type="button" class="btn btn-info" value="设置药物类别" ng-click="drugCategory()"/>
+			<input type="button" class="btn btn-info" value="设置上限价-中标价比例" ng-click="setProportion()"/>
+			<input type="button" class="btn btn-info" value="导出"/>
+			<input type="button" class="btn btn-success" value="开始运算"/>
+			<a href="#" class="">查看历史数据</a>
+		</div>
+		<div class="tableBg">
+			<table class="table">
+				<thead>
+					<tr>
+						<th></th>
+						<th>开标年</th>
+						<th>开标月</th>
+						<th>实施月</th>
+						<th>省</th>
+						<th>市</th>
+						<th>药物类别</th>
+						<th>上限价</th>
+						<th>上限价-中标价比例</th>
+						<th>中标价</th>
+						<th>模式</th>
+						<th>规则</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="obj in tableData">
+						<td><input type="checkbox" ng-model="x" ng-click="chk(obj)"/></td>
+						<td>
+							<input type="text" ng-model="obj['开标年']" ng-disabled="obj.isEdit" class="tableInput"/>
+						</td>
+						<td><input type="text" ng-model="obj['开标月']" ng-disabled="obj.isEdit" class="tableInputSM"/></td>
+						<td><input type="text" ng-model="obj['实施月']" ng-disabled="obj.isEdit" class="tableInputSM"/></td>
+						<td>{{obj['省']}}</td>
+						<td>{{obj['市']}}</td>
+						<td>
+							<select ng-model="defaultName" ng-options="category for category in obj['药物类别']" ng-disabled="obj.isEdit"></select>
+						</td>
+						<td><input type="text" value="100"  ng-disabled="obj.isEdit" class="tableInput"/></td>
+						<td><input type="text" value="85%" ng-disabled="obj.isEdit" class="tableInput"/></td>
+						<td><input type="text" value="100" ng-disabled="obj.isEdit" class="tableInput"/></td>
+						<td>招标</td>
+						<td><a href="javascript:;" ng-click="viewRules()">规则</a></td>
+						<td>
+							<a href ng-click="createRule()">弃标</a>
+							<a href ng-click="editTable(obj)">编辑</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				<span>共333页</span>
+				<span>每页<input type="text" value="20"/>个</span>
+				<input type="button" value="上页"/>
+				<select name="" id="">
+					<option value="">1</option>
+					<option value="">2</option>
+					<option value="">3</option>
+				</select>
+				<input type="button" value="下页"/>
+			</div>
+		</div>
+	</div>
+</div>

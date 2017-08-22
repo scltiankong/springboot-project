@@ -1,0 +1,30 @@
+# Tomcat
+server:
+    tomcat:
+        uri-encoding: UTF-8
+        max-threads: 1000
+        min-spare-threads: 30
+    port: ${SYS_PROJECT_PORT}
+    context-path: /
+#系统相关配置
+spring:
+  profiles:
+    include: druid,druid-slave,mybatis,redis
+  # jackson时间格式化
+  jackson:
+      time-zone: GMT+8
+      date-format: yyyy/MM/dd
+  http:
+      multipart:
+       max-file-size: 100MB
+       max-request-size: 100MB
+       enabled: true
+  # 指定静态资源的路径
+  resources:
+      static-locations: classpath:/tender/
+file:
+  uploadPath: ${TENDER_FILE_UPLOAD}
+  download:
+    template:
+      rule: ${TENDER_FILE_RULETEMPLATE}
+      history: ${TENDER_FILE_HISTEMPLATE}

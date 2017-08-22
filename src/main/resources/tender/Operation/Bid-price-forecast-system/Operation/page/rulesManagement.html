@@ -1,0 +1,115 @@
+<div class="userManagementTable search">
+	<div class="searchBox">
+		<ul class="clearfix">
+			<li class="fl row1">
+				<span class="selTitle">开标时间:</span>
+				<input type="text" class="inputDate" id="startTime1" ng-model="page.startTenderTime" onclick="WdatePicker({onpicked: function(){$(this).trigger('change')},maxDate:'#F{$dp.$D(\'endTime1\')}',dateFmt:'yyyy-M',isShowClear:false})"/>
+				<span class="TInterval">至</span>
+				<input type="text" class="inputDate" id="endTime1" ng-model="page.endTenderTime" onclick="WdatePicker({onpicked: function(){$(this).trigger('change')},minDate:'#F{$dp.$D(\'startTime1\')}',dateFmt:'yyyy-M',isShowClear:false})"/>
+			</li>
+			<li class="fl row1 rowType">
+				<span class="selTitle">药物类别:</span>
+				<select class="sel" ng-model="page.medicineTypeCode" ng-options='obj.name for obj in medCategory' >
+					<option value="">全部</option>
+				</select>
+			</li>
+			<li class="fl row2">
+				<span class="selTitle">开标地域:</span>
+				<select class="sel province" ng-model="page.province" ng-options="objP.Province for objP in AreaProvince" ng-change="cityKinkage(page.province)">
+					<option value="">省</option>
+				</select>
+				<select class="sel city" ng-model="page.city" ng-options="objC.City for objC in AreaCity">
+					<option value="">市</option>
+				</select>
+			</li>
+			<li class="fl row2">
+				<span class="selTitle" >模式:</span>
+				<select class="sel" ng-model="page.modeCode" ng-options='obj.name for obj in biddingMode' >
+					<option value="">全部</option>
+				</select>
+				<input type="submit" class="btn btn-info" value="查询" ng-click="rulesSearch(1,10)"/>
+			</li>
+		</ul>
+	</div>
+	<div class="rulesTable">
+		<div>
+			<!--<input type="checkbox" id="as" ng-model="activeAll" ng-click="multiAll(activeAll)"/><label for="as">全选</label>-->
+			<!--<input type="button" class="btn btn-info" value="批量修改规则" ng-click="amendRules(obj)"/>-->
+			<input type="button" class="btn btn-info" value="上传规则表" ng-click="volumeUploadRules()"/>
+			<a class="out" href=javascript:;>导出全部规则</a>
+		</div>
+		<div class="tableHeight">
+			<table class="table">
+				<thead>
+					<tr>
+						<!--<th></th>-->
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">开标年</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">开标月</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">延时实时周期</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">省</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">市</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">药物类别</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">模式</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)" style="width:90px;">上限价参考区域/跟随区域/议价区域</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">上线参考值/议价参考值</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)" style="width:90px;">上限价-中标价比例/议价下调比例</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)" style="width:90px;">左右联动区域</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">左右联动参考值</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">左右联动范围</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">左右联动周期</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">上下联动区域</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">上下联动参考值</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">上下联动范围</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">上下联动周期</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">其他联动规则</th>
+						<th ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat='obj in rulesList'>
+						<!--<td><input type="checkbox" ng-model="active" ng-click="multiSin($event,obj.id,active)"/></td>-->
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.tenderYear}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.tenderMonth}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.implementationMonth}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.province}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.city}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.medicineType}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.mode}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.upperArea}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.upperBargain}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.upTenderPriceRatio}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.lrLinkageRegion}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.lrLinkageRefVal}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.lrMathSymbol}}{{obj.lrLinkageTiggerCondtion}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.lrLinkageCycle}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.udLinkageArea}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.udLinkageRefVal}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.udMathSymbol}}{{obj.udLinkageTiggerCondtion}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.udLinkageCycle}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)">{{obj.otherLinkageTiggerCondtion}}</td>
+						<td ng-mouseover="moveOverMe($event)" ng-mouseleave="moveLeaveMe($event)"><a style="cursor: pointer;" ng-click="amendRules(obj)">修改</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="paging">
+		<span style="margin-right:20px;">共{{totalPageNum}}页</span>
+		<span style="margin-right:20px;">每页
+			<select name="" id="" ng-model="page.pageSize"  ng-options="obj for obj in infoNum" ng-change="changeSize()"></select>
+			个
+		</span>
+		<input type="button" value="上页" class="prevP RulesP" ng-click="PrevOrNextPage($event)"/>
+		<input type="number" min="1" ng-model="page.pageIndex" class="inputIndex"/>
+		<input type="button" value="下页" class="nextP RulesP" ng-click="PrevOrNextPage($event)"/>
+		<input type="button" value="跳转"/>
+	</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+

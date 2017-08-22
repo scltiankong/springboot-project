@@ -1,0 +1,4 @@
+# Mybatis配置
+mybatis:
+    mapperLocations: classpath:mapper/**/*.xml
+    configLocation: classpath:config/mybatis.xml
