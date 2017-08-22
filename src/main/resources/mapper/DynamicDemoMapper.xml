@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blueocean.tpf.dao.DynamicDemoDao">
+	<select id="getById" resultType="RedisDemo">
+		SELECT * FROM redis_demo where id=#{id}
+	</select>
+	<select id="get" resultType="RedisTestDemo">
+		SELECT * FROM redis_demo where id=#{id}
+	</select>
+	<insert id="save" parameterType="RedisTestDemo" useGeneratedKeys="true" keyProperty="id">
+		insert into  redis_demo(name,pwd) value(#{name},#{pwd})
+	</insert>
+	<update id="update">
+		update redis_demo set name=#{name},pwd=#{pwd} where id=#{id}
+	</update>
+</mapper>
