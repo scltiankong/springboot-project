@@ -1,4 +1,4 @@
-package com.blueocean.tpf.redis.config;
+package com.blueocean.tpf.config;
 
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 @Configuration
 @EnableCaching // 启用缓存，这个注解很重要；
-public class RedisCacheConfig extends CachingConfigurerSupport {
+public class RedisConfig extends CachingConfigurerSupport {
 	/**
      * 自定义key.
      * 此方法将会根据类名+方法名+所有参数的值生成唯一的一个key,
